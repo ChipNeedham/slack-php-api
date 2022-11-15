@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class ObjsFileSharesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\ObjsFileShares' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\ObjsFileShares';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\ObjsFileShares' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\ObjsFileShares';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,33 +39,32 @@ class ObjsFileSharesNormalizer implements DenormalizerInterface, NormalizerInter
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('private', $data) && null !== $data['private']) {
+        if (\array_key_exists('private', $data) && $data['private'] !== null) {
             $object->setPrivate($data['private']);
-        } elseif (\array_key_exists('private', $data) && null === $data['private']) {
+        }
+        elseif (\array_key_exists('private', $data) && $data['private'] === null) {
             $object->setPrivate(null);
         }
-        if (\array_key_exists('public', $data) && null !== $data['public']) {
+        if (\array_key_exists('public', $data) && $data['public'] !== null) {
             $object->setPublic($data['public']);
-        } elseif (\array_key_exists('public', $data) && null === $data['public']) {
+        }
+        elseif (\array_key_exists('public', $data) && $data['public'] === null) {
             $object->setPublic(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         if (null !== $object->getPrivate()) {
             $data['private'] = $object->getPrivate();
         }
         if (null !== $object->getPublic()) {
             $data['public'] = $object->getPublic();
         }
-
         return $data;
     }
 }

@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class ConversationsInvitePostResponsedefaultNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\ConversationsInvitePostResponsedefault' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\ConversationsInvitePostResponsedefault';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\ConversationsInvitePostResponsedefault' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\ConversationsInvitePostResponsedefault';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,50 +39,54 @@ class ConversationsInvitePostResponsedefaultNormalizer implements DenormalizerIn
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('callstack', $data) && null !== $data['callstack']) {
+        if (\array_key_exists('callstack', $data) && $data['callstack'] !== null) {
             $object->setCallstack($data['callstack']);
-        } elseif (\array_key_exists('callstack', $data) && null === $data['callstack']) {
+        }
+        elseif (\array_key_exists('callstack', $data) && $data['callstack'] === null) {
             $object->setCallstack(null);
         }
-        if (\array_key_exists('error', $data) && null !== $data['error']) {
+        if (\array_key_exists('error', $data) && $data['error'] !== null) {
             $object->setError($data['error']);
-        } elseif (\array_key_exists('error', $data) && null === $data['error']) {
+        }
+        elseif (\array_key_exists('error', $data) && $data['error'] === null) {
             $object->setError(null);
         }
-        if (\array_key_exists('errors', $data) && null !== $data['errors']) {
-            $values = [];
+        if (\array_key_exists('errors', $data) && $data['errors'] !== null) {
+            $values = array();
             foreach ($data['errors'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Slack\\Api\\Model\\ConversationsInvitePostResponsedefaultErrorsItem', 'json', $context);
             }
             $object->setErrors($values);
-        } elseif (\array_key_exists('errors', $data) && null === $data['errors']) {
+        }
+        elseif (\array_key_exists('errors', $data) && $data['errors'] === null) {
             $object->setErrors(null);
         }
-        if (\array_key_exists('needed', $data) && null !== $data['needed']) {
+        if (\array_key_exists('needed', $data) && $data['needed'] !== null) {
             $object->setNeeded($data['needed']);
-        } elseif (\array_key_exists('needed', $data) && null === $data['needed']) {
+        }
+        elseif (\array_key_exists('needed', $data) && $data['needed'] === null) {
             $object->setNeeded(null);
         }
-        if (\array_key_exists('ok', $data) && null !== $data['ok']) {
+        if (\array_key_exists('ok', $data) && $data['ok'] !== null) {
             $object->setOk($data['ok']);
-        } elseif (\array_key_exists('ok', $data) && null === $data['ok']) {
+        }
+        elseif (\array_key_exists('ok', $data) && $data['ok'] === null) {
             $object->setOk(null);
         }
-        if (\array_key_exists('provided', $data) && null !== $data['provided']) {
+        if (\array_key_exists('provided', $data) && $data['provided'] !== null) {
             $object->setProvided($data['provided']);
-        } elseif (\array_key_exists('provided', $data) && null === $data['provided']) {
+        }
+        elseif (\array_key_exists('provided', $data) && $data['provided'] === null) {
             $object->setProvided(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         if (null !== $object->getCallstack()) {
             $data['callstack'] = $object->getCallstack();
         }
@@ -106,7 +94,7 @@ class ConversationsInvitePostResponsedefaultNormalizer implements DenormalizerIn
             $data['error'] = $object->getError();
         }
         if (null !== $object->getErrors()) {
-            $values = [];
+            $values = array();
             foreach ($object->getErrors() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
@@ -119,7 +107,6 @@ class ConversationsInvitePostResponsedefaultNormalizer implements DenormalizerIn
         if (null !== $object->getProvided()) {
             $data['provided'] = $object->getProvided();
         }
-
         return $data;
     }
 }

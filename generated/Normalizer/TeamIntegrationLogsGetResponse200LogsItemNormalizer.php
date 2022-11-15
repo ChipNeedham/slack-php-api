@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class TeamIntegrationLogsGetResponse200LogsItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\TeamIntegrationLogsGetResponse200LogsItem' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\TeamIntegrationLogsGetResponse200LogsItem';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\TeamIntegrationLogsGetResponse200LogsItem' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\TeamIntegrationLogsGetResponse200LogsItem';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,71 +39,80 @@ class TeamIntegrationLogsGetResponse200LogsItemNormalizer implements Denormalize
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('admin_app_id', $data) && null !== $data['admin_app_id']) {
+        if (\array_key_exists('admin_app_id', $data) && $data['admin_app_id'] !== null) {
             $object->setAdminAppId($data['admin_app_id']);
-        } elseif (\array_key_exists('admin_app_id', $data) && null === $data['admin_app_id']) {
+        }
+        elseif (\array_key_exists('admin_app_id', $data) && $data['admin_app_id'] === null) {
             $object->setAdminAppId(null);
         }
-        if (\array_key_exists('app_id', $data) && null !== $data['app_id']) {
+        if (\array_key_exists('app_id', $data) && $data['app_id'] !== null) {
             $object->setAppId($data['app_id']);
-        } elseif (\array_key_exists('app_id', $data) && null === $data['app_id']) {
+        }
+        elseif (\array_key_exists('app_id', $data) && $data['app_id'] === null) {
             $object->setAppId(null);
         }
-        if (\array_key_exists('app_type', $data) && null !== $data['app_type']) {
+        if (\array_key_exists('app_type', $data) && $data['app_type'] !== null) {
             $object->setAppType($data['app_type']);
-        } elseif (\array_key_exists('app_type', $data) && null === $data['app_type']) {
+        }
+        elseif (\array_key_exists('app_type', $data) && $data['app_type'] === null) {
             $object->setAppType(null);
         }
-        if (\array_key_exists('change_type', $data) && null !== $data['change_type']) {
+        if (\array_key_exists('change_type', $data) && $data['change_type'] !== null) {
             $object->setChangeType($data['change_type']);
-        } elseif (\array_key_exists('change_type', $data) && null === $data['change_type']) {
+        }
+        elseif (\array_key_exists('change_type', $data) && $data['change_type'] === null) {
             $object->setChangeType(null);
         }
-        if (\array_key_exists('channel', $data) && null !== $data['channel']) {
+        if (\array_key_exists('channel', $data) && $data['channel'] !== null) {
             $object->setChannel($data['channel']);
-        } elseif (\array_key_exists('channel', $data) && null === $data['channel']) {
+        }
+        elseif (\array_key_exists('channel', $data) && $data['channel'] === null) {
             $object->setChannel(null);
         }
-        if (\array_key_exists('date', $data) && null !== $data['date']) {
+        if (\array_key_exists('date', $data) && $data['date'] !== null) {
             $object->setDate($data['date']);
-        } elseif (\array_key_exists('date', $data) && null === $data['date']) {
+        }
+        elseif (\array_key_exists('date', $data) && $data['date'] === null) {
             $object->setDate(null);
         }
-        if (\array_key_exists('scope', $data) && null !== $data['scope']) {
+        if (\array_key_exists('scope', $data) && $data['scope'] !== null) {
             $object->setScope($data['scope']);
-        } elseif (\array_key_exists('scope', $data) && null === $data['scope']) {
+        }
+        elseif (\array_key_exists('scope', $data) && $data['scope'] === null) {
             $object->setScope(null);
         }
-        if (\array_key_exists('service_id', $data) && null !== $data['service_id']) {
+        if (\array_key_exists('service_id', $data) && $data['service_id'] !== null) {
             $object->setServiceId($data['service_id']);
-        } elseif (\array_key_exists('service_id', $data) && null === $data['service_id']) {
+        }
+        elseif (\array_key_exists('service_id', $data) && $data['service_id'] === null) {
             $object->setServiceId(null);
         }
-        if (\array_key_exists('service_type', $data) && null !== $data['service_type']) {
+        if (\array_key_exists('service_type', $data) && $data['service_type'] !== null) {
             $object->setServiceType($data['service_type']);
-        } elseif (\array_key_exists('service_type', $data) && null === $data['service_type']) {
+        }
+        elseif (\array_key_exists('service_type', $data) && $data['service_type'] === null) {
             $object->setServiceType(null);
         }
-        if (\array_key_exists('user_id', $data) && null !== $data['user_id']) {
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
-        } elseif (\array_key_exists('user_id', $data) && null === $data['user_id']) {
+        }
+        elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
             $object->setUserId(null);
         }
-        if (\array_key_exists('user_name', $data) && null !== $data['user_name']) {
+        if (\array_key_exists('user_name', $data) && $data['user_name'] !== null) {
             $object->setUserName($data['user_name']);
-        } elseif (\array_key_exists('user_name', $data) && null === $data['user_name']) {
+        }
+        elseif (\array_key_exists('user_name', $data) && $data['user_name'] === null) {
             $object->setUserName(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         if (null !== $object->getAdminAppId()) {
             $data['admin_app_id'] = $object->getAdminAppId();
         }
@@ -139,7 +132,6 @@ class TeamIntegrationLogsGetResponse200LogsItemNormalizer implements Denormalize
         }
         $data['user_id'] = $object->getUserId();
         $data['user_name'] = $object->getUserName();
-
         return $data;
     }
 }

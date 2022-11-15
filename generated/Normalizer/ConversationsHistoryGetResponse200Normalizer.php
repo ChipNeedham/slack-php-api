@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class ConversationsHistoryGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\ConversationsHistoryGetResponse200' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\ConversationsHistoryGetResponse200';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\ConversationsHistoryGetResponse200' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\ConversationsHistoryGetResponse200';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,59 +39,64 @@ class ConversationsHistoryGetResponse200Normalizer implements DenormalizerInterf
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('channel_actions_count', $data) && null !== $data['channel_actions_count']) {
+        if (\array_key_exists('channel_actions_count', $data) && $data['channel_actions_count'] !== null) {
             $object->setChannelActionsCount($data['channel_actions_count']);
-        } elseif (\array_key_exists('channel_actions_count', $data) && null === $data['channel_actions_count']) {
+        }
+        elseif (\array_key_exists('channel_actions_count', $data) && $data['channel_actions_count'] === null) {
             $object->setChannelActionsCount(null);
         }
-        if (\array_key_exists('channel_actions_ts', $data) && null !== $data['channel_actions_ts']) {
+        if (\array_key_exists('channel_actions_ts', $data) && $data['channel_actions_ts'] !== null) {
             $object->setChannelActionsTs($data['channel_actions_ts']);
-        } elseif (\array_key_exists('channel_actions_ts', $data) && null === $data['channel_actions_ts']) {
+        }
+        elseif (\array_key_exists('channel_actions_ts', $data) && $data['channel_actions_ts'] === null) {
             $object->setChannelActionsTs(null);
         }
-        if (\array_key_exists('has_more', $data) && null !== $data['has_more']) {
+        if (\array_key_exists('has_more', $data) && $data['has_more'] !== null) {
             $object->setHasMore($data['has_more']);
-        } elseif (\array_key_exists('has_more', $data) && null === $data['has_more']) {
+        }
+        elseif (\array_key_exists('has_more', $data) && $data['has_more'] === null) {
             $object->setHasMore(null);
         }
-        if (\array_key_exists('messages', $data) && null !== $data['messages']) {
-            $values = [];
+        if (\array_key_exists('messages', $data) && $data['messages'] !== null) {
+            $values = array();
             foreach ($data['messages'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'JoliCode\\Slack\\Api\\Model\\ObjsMessage', 'json', $context);
             }
             $object->setMessages($values);
-        } elseif (\array_key_exists('messages', $data) && null === $data['messages']) {
+        }
+        elseif (\array_key_exists('messages', $data) && $data['messages'] === null) {
             $object->setMessages(null);
         }
-        if (\array_key_exists('ok', $data) && null !== $data['ok']) {
+        if (\array_key_exists('ok', $data) && $data['ok'] !== null) {
             $object->setOk($data['ok']);
-        } elseif (\array_key_exists('ok', $data) && null === $data['ok']) {
+        }
+        elseif (\array_key_exists('ok', $data) && $data['ok'] === null) {
             $object->setOk(null);
         }
-        if (\array_key_exists('pin_count', $data) && null !== $data['pin_count']) {
+        if (\array_key_exists('pin_count', $data) && $data['pin_count'] !== null) {
             $object->setPinCount($data['pin_count']);
-        } elseif (\array_key_exists('pin_count', $data) && null === $data['pin_count']) {
+        }
+        elseif (\array_key_exists('pin_count', $data) && $data['pin_count'] === null) {
             $object->setPinCount(null);
         }
-        if (\array_key_exists('response_metadata', $data) && null !== $data['response_metadata']) {
+        if (\array_key_exists('response_metadata', $data) && $data['response_metadata'] !== null) {
             $object->setResponseMetadata($this->denormalizer->denormalize($data['response_metadata'], 'JoliCode\\Slack\\Api\\Model\\ConversationsHistoryGetResponse200ResponseMetadata', 'json', $context));
-        } elseif (\array_key_exists('response_metadata', $data) && null === $data['response_metadata']) {
+        }
+        elseif (\array_key_exists('response_metadata', $data) && $data['response_metadata'] === null) {
             $object->setResponseMetadata(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         $data['channel_actions_count'] = $object->getChannelActionsCount();
         $data['channel_actions_ts'] = $object->getChannelActionsTs();
         $data['has_more'] = $object->getHasMore();
-        $values = [];
+        $values = array();
         foreach ($object->getMessages() as $value) {
             $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
@@ -117,7 +106,6 @@ class ConversationsHistoryGetResponse200Normalizer implements DenormalizerInterf
         if (null !== $object->getResponseMetadata()) {
             $data['response_metadata'] = $this->normalizer->normalize($object->getResponseMetadata(), 'json', $context);
         }
-
         return $data;
     }
 }

@@ -1,86 +1,65 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Endpoint;
 
 class UsergroupsUsersList extends \JoliCode\Slack\Api\Runtime\Client\BaseEndpoint implements \JoliCode\Slack\Api\Runtime\Client\Endpoint
 {
-    use \JoliCode\Slack\Api\Runtime\Client\EndpointTrait;
-
     /**
-     * List all users in a User Group.
+     * List all users in a User Group
      *
      * @param array $queryParameters {
-     *
-     *     @var bool $include_disabled allow results that involve disabled User Groups
+     *     @var bool $include_disabled Allow results that involve disabled User Groups.
      *     @var string $token Authentication token. Requires scope: `usergroups:read`
      *     @var string $usergroup The encoded ID of the User Group to read.
      * }
      */
-    public function __construct(array $queryParameters = [])
+    public function __construct(array $queryParameters = array())
     {
         $this->queryParameters = $queryParameters;
     }
-
-    public function getMethod(): string
+    use \JoliCode\Slack\Api\Runtime\Client\EndpointTrait;
+    public function getMethod() : string
     {
         return 'GET';
     }
-
-    public function getUri(): string
+    public function getUri() : string
     {
         return '/usergroups.users.list';
     }
-
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
     {
-        return [[], null];
+        return array(array(), null);
     }
-
-    public function getExtraHeaders(): array
+    public function getExtraHeaders() : array
     {
-        return ['Accept' => ['application/json']];
+        return array('Accept' => array('application/json'));
     }
-
-    public function getAuthenticationScopes(): array
-    {
-        return ['slackAuth'];
-    }
-
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(['include_disabled', 'token', 'usergroup']);
-        $optionsResolver->setRequired(['usergroup']);
-        $optionsResolver->setDefaults([]);
-        $optionsResolver->addAllowedTypes('include_disabled', ['bool']);
-        $optionsResolver->addAllowedTypes('token', ['string']);
-        $optionsResolver->addAllowedTypes('usergroup', ['string']);
-
+        $optionsResolver->setDefined(array('include_disabled', 'token', 'usergroup'));
+        $optionsResolver->setRequired(array('usergroup'));
+        $optionsResolver->setDefaults(array());
+        $optionsResolver->setAllowedTypes('include_disabled', array('bool'));
+        $optionsResolver->setAllowedTypes('token', array('string'));
+        $optionsResolver->setAllowedTypes('usergroup', array('string'));
         return $optionsResolver;
     }
-
     /**
      * {@inheritdoc}
      *
-     * @return \JoliCode\Slack\Api\Model\UsergroupsUsersListGetResponse200|\JoliCode\Slack\Api\Model\UsergroupsUsersListGetResponsedefault|null
+     *
+     * @return null|\JoliCode\Slack\Api\Model\UsergroupsUsersListGetResponse200|\JoliCode\Slack\Api\Model\UsergroupsUsersListGetResponsedefault
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (200 === $status) {
             return $serializer->deserialize($body, 'JoliCode\\Slack\\Api\\Model\\UsergroupsUsersListGetResponse200', 'json');
         }
-
         return $serializer->deserialize($body, 'JoliCode\\Slack\\Api\\Model\\UsergroupsUsersListGetResponsedefault', 'json');
+    }
+    public function getAuthenticationScopes() : array
+    {
+        return array('slackAuth');
     }
 }

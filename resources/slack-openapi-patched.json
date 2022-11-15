@@ -18900,7 +18900,7 @@
             }
         },
         "/oauth.v2.access": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/x-www-form-urlencoded"
                 ],
@@ -18927,7 +18927,6 @@
                         "description": "The `code` param returned via the OAuth callback.",
                         "in": "query",
                         "name": "code",
-                        "required": true,
                         "type": "string"
                     },
                     {
@@ -18935,6 +18934,18 @@
                         "in": "query",
                         "name": "redirect_uri",
                         "type": "string"
+                    },
+                    {
+                      "description": "The grant_type param as described in the OAuth spec.",
+                      "in": "query",
+                      "name": "grant_type",
+                      "type": "string"
+                    },
+                    {
+                      "description": "The refresh_token param as described in the OAuth spec.",
+                      "in": "query",
+                      "name": "refresh_token",
+                      "type": "string"
                     }
                 ],
                 "produces": [
@@ -19019,6 +19030,94 @@
                 ]
             }
         },
+      "/tooling.tokens.rotate": {
+        "get": {
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "description": "Exchanges a refresh token for a new app configuration token.",
+          "externalDocs": {
+            "description": "API method documentation",
+            "url": "https://api.slack.com/methods/tooling.tokens.rotate"
+          },
+          "operationId": "tooling_tokens_rotate",
+          "parameters": [
+            {
+              "description": "The xoxe refresh token that was issued",
+              "in": "query",
+              "name": "refresh_token",
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "new tokens",
+              "examples": {
+                "application/json": {
+                  "ok": true,
+                  "token": "xoxe.xoxp-...",
+                  "refresh_token": "xoxe-...",
+                  "team_id": "...",
+                  "user_id": "...",
+                  "iat": 1633095660,
+                  "exp": 1633138860
+                }
+              },
+              "schema": {
+                "additionalProperties": true,
+                "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+                "properties": {
+                  "ok": {
+                    "$ref": "#/definitions/defs_ok_true"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "title": "Default success template",
+                "type": "object"
+              }
+            },
+            "default": {
+              "description": "Typical error response",
+              "examples": {
+                "application/json": {
+                  "error": "invalid_client_id",
+                  "ok": false
+                }
+              },
+              "schema": {
+                "additionalProperties": true,
+                "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+                "properties": {
+                  "ok": {
+                    "$ref": "#/definitions/defs_ok_false"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "title": "Default error template",
+                "type": "object"
+              }
+            }
+          },
+          "security": [
+            {
+              "slackAuth": [
+                "none"
+              ]
+            }
+          ],
+          "tags": [
+            "tooling",
+            "tooling.tokens"
+          ]
+        }
+      },
         "/pins.add": {
             "post": {
                 "consumes": [

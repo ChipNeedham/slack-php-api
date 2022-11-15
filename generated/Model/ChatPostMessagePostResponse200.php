@@ -1,82 +1,115 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Model;
 
 class ChatPostMessagePostResponse200
 {
     /**
+     * 
+     *
      * @var string|null
      */
     protected $channel;
     /**
+     * 
+     *
      * @var ObjsMessage|null
      */
     protected $message;
     /**
+     * 
+     *
      * @var bool|null
      */
     protected $ok;
     /**
+     * 
+     *
      * @var string|null
      */
     protected $ts;
-
-    public function getChannel(): ?string
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getChannel() : ?string
     {
         return $this->channel;
     }
-
-    public function setChannel(?string $channel): self
+    /**
+     * 
+     *
+     * @param string|null $channel
+     *
+     * @return self
+     */
+    public function setChannel(?string $channel) : self
     {
         $this->channel = $channel;
-
         return $this;
     }
-
-    public function getMessage(): ?ObjsMessage
+    /**
+     * 
+     *
+     * @return ObjsMessage|null
+     */
+    public function getMessage() : ?ObjsMessage
     {
         return $this->message;
     }
-
-    public function setMessage(?ObjsMessage $message): self
+    /**
+     * 
+     *
+     * @param ObjsMessage|null $message
+     *
+     * @return self
+     */
+    public function setMessage(?ObjsMessage $message) : self
     {
         $this->message = $message;
-
         return $this;
     }
-
-    public function getOk(): ?bool
+    /**
+     * 
+     *
+     * @return bool|null
+     */
+    public function getOk() : ?bool
     {
         return $this->ok;
     }
-
-    public function setOk(?bool $ok): self
+    /**
+     * 
+     *
+     * @param bool|null $ok
+     *
+     * @return self
+     */
+    public function setOk(?bool $ok) : self
     {
         $this->ok = $ok;
-
         return $this;
     }
-
-    public function getTs(): ?string
+    /**
+     * 
+     *
+     * @return string|null
+     */
+    public function getTs() : ?string
     {
         return $this->ts;
     }
-
-    public function setTs(?string $ts): self
+    /**
+     * 
+     *
+     * @param string|null $ts
+     *
+     * @return self
+     */
+    public function setTs(?string $ts) : self
     {
         $this->ts = $ts;
-
         return $this;
     }
 }

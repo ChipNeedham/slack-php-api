@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class FilesInfoGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\FilesInfoGetResponse200' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\FilesInfoGetResponse200';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\FilesInfoGetResponse200' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\FilesInfoGetResponse200';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,56 +39,61 @@ class FilesInfoGetResponse200Normalizer implements DenormalizerInterface, Normal
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('comments', $data) && null !== $data['comments']) {
-            $values = [];
+        if (\array_key_exists('comments', $data) && $data['comments'] !== null) {
+            $values = array();
             foreach ($data['comments'] as $value) {
                 $values[] = $value;
             }
             $object->setComments($values);
-        } elseif (\array_key_exists('comments', $data) && null === $data['comments']) {
+        }
+        elseif (\array_key_exists('comments', $data) && $data['comments'] === null) {
             $object->setComments(null);
         }
-        if (\array_key_exists('content_html', $data) && null !== $data['content_html']) {
+        if (\array_key_exists('content_html', $data) && $data['content_html'] !== null) {
             $object->setContentHtml($data['content_html']);
-        } elseif (\array_key_exists('content_html', $data) && null === $data['content_html']) {
+        }
+        elseif (\array_key_exists('content_html', $data) && $data['content_html'] === null) {
             $object->setContentHtml(null);
         }
-        if (\array_key_exists('editor', $data) && null !== $data['editor']) {
+        if (\array_key_exists('editor', $data) && $data['editor'] !== null) {
             $object->setEditor($data['editor']);
-        } elseif (\array_key_exists('editor', $data) && null === $data['editor']) {
+        }
+        elseif (\array_key_exists('editor', $data) && $data['editor'] === null) {
             $object->setEditor(null);
         }
-        if (\array_key_exists('file', $data) && null !== $data['file']) {
+        if (\array_key_exists('file', $data) && $data['file'] !== null) {
             $object->setFile($this->denormalizer->denormalize($data['file'], 'JoliCode\\Slack\\Api\\Model\\ObjsFile', 'json', $context));
-        } elseif (\array_key_exists('file', $data) && null === $data['file']) {
+        }
+        elseif (\array_key_exists('file', $data) && $data['file'] === null) {
             $object->setFile(null);
         }
-        if (\array_key_exists('ok', $data) && null !== $data['ok']) {
+        if (\array_key_exists('ok', $data) && $data['ok'] !== null) {
             $object->setOk($data['ok']);
-        } elseif (\array_key_exists('ok', $data) && null === $data['ok']) {
+        }
+        elseif (\array_key_exists('ok', $data) && $data['ok'] === null) {
             $object->setOk(null);
         }
-        if (\array_key_exists('paging', $data) && null !== $data['paging']) {
+        if (\array_key_exists('paging', $data) && $data['paging'] !== null) {
             $object->setPaging($this->denormalizer->denormalize($data['paging'], 'JoliCode\\Slack\\Api\\Model\\ObjsPaging', 'json', $context));
-        } elseif (\array_key_exists('paging', $data) && null === $data['paging']) {
+        }
+        elseif (\array_key_exists('paging', $data) && $data['paging'] === null) {
             $object->setPaging(null);
         }
-        if (\array_key_exists('response_metadata', $data) && null !== $data['response_metadata']) {
+        if (\array_key_exists('response_metadata', $data) && $data['response_metadata'] !== null) {
             $object->setResponseMetadata($this->denormalizer->denormalize($data['response_metadata'], 'JoliCode\\Slack\\Api\\Model\\ObjsResponseMetadata', 'json', $context));
-        } elseif (\array_key_exists('response_metadata', $data) && null === $data['response_metadata']) {
+        }
+        elseif (\array_key_exists('response_metadata', $data) && $data['response_metadata'] === null) {
             $object->setResponseMetadata(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
-        $values = [];
+        $data = array();
+        $values = array();
         foreach ($object->getComments() as $value) {
             $values[] = $value;
         }
@@ -123,7 +112,6 @@ class FilesInfoGetResponse200Normalizer implements DenormalizerInterface, Normal
         if (null !== $object->getResponseMetadata()) {
             $data['response_metadata'] = $this->normalizer->normalize($object->getResponseMetadata(), 'json', $context);
         }
-
         return $data;
     }
 }

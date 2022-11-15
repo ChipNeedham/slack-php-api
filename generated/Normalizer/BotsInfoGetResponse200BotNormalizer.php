@@ -1,49 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of JoliCode's Slack PHP API project.
- *
- * (c) JoliCode <coucou@jolicode.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace JoliCode\Slack\Api\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use JoliCode\Slack\Api\Runtime\Normalizer\CheckArray;
-use JoliCode\Slack\Api\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
 class BotsInfoGetResponse200BotNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
-    use CheckArray;
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
-    use ValidatorTrait;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return 'JoliCode\\Slack\\Api\\Model\\BotsInfoGetResponse200Bot' === $type;
+        return $type === 'JoliCode\\Slack\\Api\\Model\\BotsInfoGetResponse200Bot';
     }
-
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null) : bool
     {
-        return \is_object($data) && 'JoliCode\\Slack\\Api\\Model\\BotsInfoGetResponse200Bot' === \get_class($data);
+        return is_object($data) && get_class($data) === 'JoliCode\\Slack\\Api\\Model\\BotsInfoGetResponse200Bot';
     }
-
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = array())
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,51 +39,56 @@ class BotsInfoGetResponse200BotNormalizer implements DenormalizerInterface, Norm
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('app_id', $data) && null !== $data['app_id']) {
+        if (\array_key_exists('app_id', $data) && $data['app_id'] !== null) {
             $object->setAppId($data['app_id']);
-        } elseif (\array_key_exists('app_id', $data) && null === $data['app_id']) {
+        }
+        elseif (\array_key_exists('app_id', $data) && $data['app_id'] === null) {
             $object->setAppId(null);
         }
-        if (\array_key_exists('deleted', $data) && null !== $data['deleted']) {
+        if (\array_key_exists('deleted', $data) && $data['deleted'] !== null) {
             $object->setDeleted($data['deleted']);
-        } elseif (\array_key_exists('deleted', $data) && null === $data['deleted']) {
+        }
+        elseif (\array_key_exists('deleted', $data) && $data['deleted'] === null) {
             $object->setDeleted(null);
         }
-        if (\array_key_exists('icons', $data) && null !== $data['icons']) {
+        if (\array_key_exists('icons', $data) && $data['icons'] !== null) {
             $object->setIcons($this->denormalizer->denormalize($data['icons'], 'JoliCode\\Slack\\Api\\Model\\BotsInfoGetResponse200BotIcons', 'json', $context));
-        } elseif (\array_key_exists('icons', $data) && null === $data['icons']) {
+        }
+        elseif (\array_key_exists('icons', $data) && $data['icons'] === null) {
             $object->setIcons(null);
         }
-        if (\array_key_exists('id', $data) && null !== $data['id']) {
+        if (\array_key_exists('id', $data) && $data['id'] !== null) {
             $object->setId($data['id']);
-        } elseif (\array_key_exists('id', $data) && null === $data['id']) {
+        }
+        elseif (\array_key_exists('id', $data) && $data['id'] === null) {
             $object->setId(null);
         }
-        if (\array_key_exists('name', $data) && null !== $data['name']) {
+        if (\array_key_exists('name', $data) && $data['name'] !== null) {
             $object->setName($data['name']);
-        } elseif (\array_key_exists('name', $data) && null === $data['name']) {
+        }
+        elseif (\array_key_exists('name', $data) && $data['name'] === null) {
             $object->setName(null);
         }
-        if (\array_key_exists('updated', $data) && null !== $data['updated']) {
+        if (\array_key_exists('updated', $data) && $data['updated'] !== null) {
             $object->setUpdated($data['updated']);
-        } elseif (\array_key_exists('updated', $data) && null === $data['updated']) {
+        }
+        elseif (\array_key_exists('updated', $data) && $data['updated'] === null) {
             $object->setUpdated(null);
         }
-        if (\array_key_exists('user_id', $data) && null !== $data['user_id']) {
+        if (\array_key_exists('user_id', $data) && $data['user_id'] !== null) {
             $object->setUserId($data['user_id']);
-        } elseif (\array_key_exists('user_id', $data) && null === $data['user_id']) {
+        }
+        elseif (\array_key_exists('user_id', $data) && $data['user_id'] === null) {
             $object->setUserId(null);
         }
-
         return $object;
     }
-
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = array())
     {
-        $data = [];
+        $data = array();
         $data['app_id'] = $object->getAppId();
         $data['deleted'] = $object->getDeleted();
         $data['icons'] = $this->normalizer->normalize($object->getIcons(), 'json', $context);
@@ -109,7 +98,6 @@ class BotsInfoGetResponse200BotNormalizer implements DenormalizerInterface, Norm
         if (null !== $object->getUserId()) {
             $data['user_id'] = $object->getUserId();
         }
-
         return $data;
     }
 }
